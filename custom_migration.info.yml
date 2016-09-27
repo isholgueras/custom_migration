@@ -1,0 +1,11 @@
+name: Custom migration
+type: module
+description: 'Migrates Drupal 7 content to Drupal 8'
+package: Migrate
+version: '8.x-0.1-dev'
+core: '8.x'
+project: 'migrate'
+dependencies:
+  - migrate
+  - migrate_plus
+  - migrate_tools
