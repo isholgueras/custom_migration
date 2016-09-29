@@ -1,18 +1,19 @@
 id: cm_users
 label: Migrate users from old Drupal 7 to Drupal 8
-migration_group: custom_migration_group
+migration_group: cm_group
 
 source:
   plugin: cm_users
+  track_changes: true
 
 destination:
   plugin: entity:user
 
 process:
+  name: name
   mail: mail
   init: init
   status: status
-  name: name
   roles:
     plugin: default_value
     default_value: 2

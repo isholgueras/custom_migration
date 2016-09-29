@@ -1,0 +1,46 @@
+id: cm_articles_800_X
+label: Migrate proposals from old Hackity app to Drupal 8
+migration_group: cm_group
+
+source:
+  plugin: cm_articles
+  min: 800
+  track_changes: true
+
+destination:
+  plugin: entity:node
+
+process:
+  nid: nid
+
+  title: title
+
+  type:
+    plugin: default_value
+    default_value: article
+
+  uid:
+    plugin: migration
+    migration: cm_users
+    source: uid
+
+  status:
+    plugin: default_value
+    default_value: true
+
+  sticky:
+    plugin: default_value
+    default_value: 0
+
+  created: created
+
+  changed: changed
+
+  'body/value': body_value
+  'body/format':
+    plugin: default_value
+    default_value: full_html
+
+migration_dependencies:
+  required:
+    - cm_users

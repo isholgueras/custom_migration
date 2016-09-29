@@ -5,7 +5,7 @@
  * Contains \Drupal\hck_migrate\Plugin\migrate\source\ProposalUser.
  */
 
-namespace Drupal\hck_migrate\Plugin\migrate\source;
+namespace Drupal\custom_migration\Plugin\migrate\source;
 
 use Drupal\migrate\Plugin\migrate\source\SqlBase;
 use Drupal\migrate\Row;
@@ -14,10 +14,10 @@ use Drupal\migrate\Row;
  * Source plugin for users.
  *
  * @MigrateSource(
- *   id = "cm_user"
+ *   id = "cm_users"
  * )
  */
-class ProposalUser extends SqlBase {
+class CMUsers extends SqlBase {
 
     /**
      * {@inheritdoc}
@@ -28,11 +28,12 @@ class ProposalUser extends SqlBase {
                 'uid',
                 'name',
                 'mail',
-                'active',
+                'status',
                 'created',
-                'last_login',
+                'login',
             ])
-            ->condition("u.username", "admin", "<>");
+          ->condition("u.name", "admin", "<>")
+          ->condition("u.name", "", "<>");
         return $query;
     }
 
@@ -41,12 +42,12 @@ class ProposalUser extends SqlBase {
      */
     public function fields() {
         $fields = [
-            'id' => $this->t("User ID"),
-            'username' => $this->t("Username"),
-            'email' => $this->t("User's email"),
-            'active' => $this->t("User is active or blocked"),
+            'uid' => $this->t("User ID"),
+            'name' => $this->t("Username"),
+            'mail' => $this->t("User's email"),
+            'status' => $this->t("User is active or blocked"),
             'created' => $this->t("Creation date"),
-            'last_login' => $this->t("Last login from user"),
+            'login' => $this->t("Last login from user"),
         ];
 
         return $fields;
@@ -57,7 +58,7 @@ class ProposalUser extends SqlBase {
      */
     public function getIds() {
         return [
-            'id' => [
+            'uid' => [
                 'type' => 'string',
                 'alias' => 'u',
             ],
